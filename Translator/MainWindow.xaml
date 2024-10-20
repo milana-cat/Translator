@@ -18,7 +18,7 @@
                 <MenuItem Header="Сохранить" Name="SaveFileButton" Click="SaveMenuItem_Click"/>
             </MenuItem>
             <MenuItem Header="Компиляция">
-                <MenuItem Header="Начать компиляцию" Name="CompilationButton"/>
+                <MenuItem Header="Начать компиляцию" Name="CompilationButton" Click="CompilationButton_Click"/>
             </MenuItem>
         </Menu>
 
