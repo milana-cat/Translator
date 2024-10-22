@@ -80,10 +80,12 @@ namespace Translator
             SaveTextBox.Text += "\n Var:";
             foreach (Identifier id in idef.Identifiers)
                 SaveTextBox.Text += id.name.ToString() + "; ";*/
-            
-            if( errors.Errors != null )
-                foreach (string  error in errors.Errors)
+
+            if (errors.Errors.Count!=0)
+                foreach (string error in errors.Errors)
                     SaveTextBox.Text += error;
+            else
+                SaveTextBox.Text = "Ошибок не найдено. Компиляция выполнена успешно!";
             Translation.Reader.Close();
            
             //SaveTextBox.Text = SelectTextBox.Text;
