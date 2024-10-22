@@ -21,7 +21,7 @@ public  class NameTable
 		_identifiers.Add(new Identifier(name, category));
 	}
 
-	public  void AddIdentifier(string name, tCat category, tType type)
+	public static void AddIdentifier(string name, tCat category, tType type)
 	{
 		if (FindIdentifierByName(name) != null)
 			throw new Exception("Ошибка! Идентификатор с таким именем уже существует!");

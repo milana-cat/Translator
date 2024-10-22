@@ -12,6 +12,7 @@ using System.Windows.Shapes;
 using System.Xml;
 using LexicalAnalise;
 using NameTables;
+using SyntaxAnalyzer;
 
 
 namespace Translator
@@ -61,11 +62,14 @@ namespace Translator
             Translation.Reader.Initialize(Path);
             LexicalAnalyzer lexems = new LexicalAnalyzer();
             NameTables.NameTable idef = new NameTables.NameTable();
+            ErrorHandler errors = new ErrorHandler();
+            
             while (!Translation.Reader.EOF){
                 //var lexem = lexems;
                 
                 if (lexems.Lexem == Lexem.Name && NameTables.NameTable.FindIdentifierByName(lexems.Name.ToString())==null)
                     NameTables.NameTable.AddIdentifier(lexems.Name.ToString(), tCat.Var);
+                SyntaxAnalyzer.SyntaxAnalyzer.Compile();
                 LexicalAnalyzer.ParseNextLexem();
                 if (lexems.Lexem == Lexem.Delimiter)
                 {
@@ -76,7 +80,10 @@ namespace Translator
             SaveTextBox.Text += "\nVar:";
             foreach (Identifier id in idef.Identifiers)
                 SaveTextBox.Text += id.name.ToString() + "; ";
-
+            
+            if( errors.Errors != null )
+                foreach (string  error in errors.Errors)
+                    SaveTextBox.Text += error;
             Translation.Reader.Close();
            
             //SaveTextBox.Text = SelectTextBox.Text;

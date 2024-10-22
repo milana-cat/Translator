@@ -27,7 +27,7 @@ namespace LexicalAnalise
             this.lexem = lexem;
         }
     }
-    public enum Lexem
+    public  enum Lexem
     {
         None,
 
@@ -92,7 +92,7 @@ namespace LexicalAnalise
 
         public  Lexem Lexem => _lexem;
         public  string Name => _name;
-        public  int Number => _number;
+        public static int Number => _number;
 
         private static void AddKeyword(string word, Lexem lexem)
         {
