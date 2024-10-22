@@ -13,30 +13,26 @@ public static class SyntaxAnalyzer
 	private static void CheckLexem(Lexem expectedLexem)
 	{
 		{
-			LexicalAnalyzer lexems = new LexicalAnalyzer();
 
-			if (lexems.Lexem == expectedLexem)
+			if (LexicalAnalyzer.Lexem == expectedLexem)
 			{
 				LexicalAnalyzer.ParseNextLexem();
 			}
-			else if (lexems.Lexem == Lexem.EOF)
-			{
-				return;
-			}
+
 			else
 			{
-				ErrorHandler.AddError($"Вместо {lexems.Lexem} ожидалось {expectedLexem}. (Строка {Reader.LineNumber}, позиция {Reader.PositionInLine}, символ '{Reader.Character}')");
+				ErrorHandler.AddError($"Вместо {LexicalAnalyzer.Lexem} ожидалось {expectedLexem}. (Строка {Reader.LineNumber}, позиция {Reader.PositionInLine}, символ '{Reader.Character}')");
 			}
 		}
 	}
 		private static void ParseVariableDeclaration()
 		{
-			LexicalAnalyzer lexems = new LexicalAnalyzer();
+
 			CheckLexem(Lexem.Type);
 
-			if (lexems.Lexem == Lexem.Name)
+			if (LexicalAnalyzer.Lexem == Lexem.Name)
 			{
-				NameTable.AddIdentifier(lexems.Name, tCat.Var, tType.Int); /////////////////////////
+				NameTable.AddIdentifier(LexicalAnalyzer.Name, tCat.Var, tType.Int); /////////////////////////
 				LexicalAnalyzer.ParseNextLexem();
 			}
 			else
@@ -44,12 +40,12 @@ public static class SyntaxAnalyzer
 				ErrorHandler.AddError($"Ожидалось название переменной. (Строка {Reader.LineNumber}, позиция {Reader.PositionInLine}, символ '{Reader.Character}')");
 			}
 
-			while (lexems.Lexem == Lexem.Comma)
+			while (LexicalAnalyzer.Lexem == Lexem.Comma)
 			{
 				LexicalAnalyzer.ParseNextLexem();
-				if (lexems.Lexem == Lexem.Name)
+				if (LexicalAnalyzer.Lexem == Lexem.Name)
 				{
-					NameTable.AddIdentifier(lexems.Name, tCat.Var, tType.Int); /////////////////////////
+					NameTable.AddIdentifier(LexicalAnalyzer.Name, tCat.Var, tType.Int); /////////////////////////
 					LexicalAnalyzer.ParseNextLexem();
 				}
 				else
@@ -63,7 +59,7 @@ public static class SyntaxAnalyzer
 
 		public static void Compile()
 		{
-			LexicalAnalyzer lexems = new LexicalAnalyzer();
+			//LexicalAnalyzer lexems = new LexicalAnalyzer();
 			ParseVariableDeclaration();
 
 		}

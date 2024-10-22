@@ -60,26 +60,26 @@ namespace Translator
         {
             SaveTextBox.Text = string.Empty;    
             Translation.Reader.Initialize(Path);
-            LexicalAnalyzer lexems = new LexicalAnalyzer();
-            NameTables.NameTable idef = new NameTables.NameTable();
+            //LexicalAnalyzer lexems = new LexicalAnalyzer();
+            //NameTables.NameTable idef = new NameTables.NameTable();
             ErrorHandler errors = new ErrorHandler();
-            
-            while (!Translation.Reader.EOF){
+            SyntaxAnalyzer.SyntaxAnalyzer.Compile();
+            /*while (!Translation.Reader.EOF){
                 //var lexem = lexems;
-                
+               
                 if (lexems.Lexem == Lexem.Name && NameTables.NameTable.FindIdentifierByName(lexems.Name.ToString())==null)
                     NameTables.NameTable.AddIdentifier(lexems.Name.ToString(), tCat.Var);
-                SyntaxAnalyzer.SyntaxAnalyzer.Compile();
+                
                 LexicalAnalyzer.ParseNextLexem();
                 if (lexems.Lexem == Lexem.Delimiter)
                 {
                     SaveTextBox.Text += '\n';
                 }
                 SaveTextBox.Text += lexems.Lexem.ToString() +" ";
-            }
-            SaveTextBox.Text += "\nVar:";
+        }
+            SaveTextBox.Text += "\n Var:";
             foreach (Identifier id in idef.Identifiers)
-                SaveTextBox.Text += id.name.ToString() + "; ";
+                SaveTextBox.Text += id.name.ToString() + "; ";*/
             
             if( errors.Errors != null )
                 foreach (string  error in errors.Errors)

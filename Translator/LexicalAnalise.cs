@@ -50,25 +50,25 @@ namespace LexicalAnalise
         Xor,
         And
     }
-    public  class LexicalAnalyzer
+    public static class LexicalAnalyzer
     {
         private static List<Keyword> _keywords;
         private static Lexem _lexem;
         private static string _name;
         private static int _number;
 
-       public  LexicalAnalyzer()
+       static LexicalAnalyzer()
         {
             _keywords = new List<Keyword>();
             _lexem = Lexem.None;
             _name = string.Empty;
             _number = 0;
 
-            AddKeyword("int", Lexem.Type);
+            AddKeyword("var", Lexem.Type);
 
-            AddKeyword("begin", Lexem.Begin);
-            AddKeyword("end", Lexem.End);
             AddKeyword("print", Lexem.Print);
+
+
             AddKeyword("if", Lexem.If);
             AddKeyword("then", Lexem.Then);
             AddKeyword("elseif", Lexem.ElseIf);
@@ -90,8 +90,8 @@ namespace LexicalAnalise
             ParseNextLexem();
         }
 
-        public  Lexem Lexem => _lexem;
-        public  string Name => _name;
+        public static  Lexem Lexem => _lexem;
+        public static string Name => _name;
         public static int Number => _number;
 
         private static void AddKeyword(string word, Lexem lexem)
@@ -167,6 +167,7 @@ namespace LexicalAnalise
                     _lexem = Lexem.Assign;
                 }
             }
+            /*
             else if (Reader.Character == '!')
             {
                 Reader.ReadNextCharacter();
@@ -205,7 +206,7 @@ namespace LexicalAnalise
                 {
                     _lexem = Lexem.Greater;
                 }
-            }
+            }*/
             else if (Reader.Character == '+')
             {
                 Reader.ReadNextCharacter();
@@ -259,7 +260,7 @@ namespace LexicalAnalise
 
             if (!int.TryParse(number, out int result))
             {
-                throw new Exception("Ошибка! Переполнение типа int!");
+                throw new Exception("Ошибка! Переполнение типа var!");
             }
 
             _number = result;
