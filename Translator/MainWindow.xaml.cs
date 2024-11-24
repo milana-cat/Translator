@@ -17,6 +17,8 @@ using SyntaxAnalyzer;
 
 namespace Translator
 {
+
+    ///Исправление на форме сделать
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -81,13 +83,11 @@ namespace Translator
             foreach (Identifier id in idef.Identifiers)
                 SaveTextBox.Text += id.name.ToString() + "; ";*/
 
-            if (errors.Errors.Count!=0)
-                foreach (string error in errors.Errors)
-                    SaveTextBox.Text += error;
-            else
-                SaveTextBox.Text = "Ошибок не найдено. Компиляция выполнена успешно!";
-            Translation.Reader.Close();
-           
+            Console.WriteLine(string.Join('\n', ErrorHandler.Errors));
+
+            foreach (var CodePointer in CodeGenerator.Code)
+                SaveTextBox.Text+= CodePointer + '\n';
+
             //SaveTextBox.Text = SelectTextBox.Text;
 
         }
