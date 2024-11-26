@@ -493,7 +493,7 @@ public static class SyntaxAnalyzer
 	{
 		private static List<string> _errors;
 
-		public static List<string> Errors => _errors;
+		public  List<string> Errors => _errors;
 
 		static ErrorHandler()
 		{
