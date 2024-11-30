@@ -6,7 +6,7 @@ using Translator;
 
 namespace NameTables;
 
-public  class NameTable
+public static class NameTable
 {
 	private static List<Identifier> _identifiers;
 
@@ -15,7 +15,8 @@ public  class NameTable
 	 static NameTable()
 	{
 		_identifiers = new List<Identifier>();
-	}
+        
+    }
 
 
     public static void AddIdentifier(string name, tCat category)
@@ -36,7 +37,11 @@ public  class NameTable
 
 	public static  Identifier? FindIdentifierByName(string name)
 	{
-		foreach (Identifier identifier in _identifiers) 
+        if (_identifiers == null) // Дополнительная проверка на случай, если _code все же окажется null
+        {
+            _identifiers = new List<Identifier>();
+        }
+        foreach (Identifier identifier in _identifiers) 
 			if (identifier.name == name)
 				return identifier;
 

@@ -30,13 +30,13 @@
             <Grid Grid.Column="0">
                 <Label Content="Исходный код" Grid.Column="0" VerticalAlignment="Top" ></Label>
                 <ScrollViewer>
-                    <TextBox Name="SelectTextBox" TextWrapping="Wrap" Margin="0 20 0 0" />
+                    <TextBox Name="SelectTextBox" TextWrapping="Wrap" Margin="0 20 0 0" FontSize="20" />
                 </ScrollViewer>
             </Grid>
             <Grid Grid.Column="1">
                 <Label Content="Результат" Grid.Column="1" VerticalAlignment="Top"  ></Label>
                 <ScrollViewer>
-                    <TextBox x:Name="SaveTextBox" TextWrapping="Wrap" Margin="0 20 0 0" IsEnabled="False" Text="sdfsdfsdg"/>
+                    <TextBox x:Name="SaveTextBox" TextWrapping="Wrap" Margin="0 20 0 0" IsEnabled="False" FontSize="20"/>
                 </ScrollViewer>
             </Grid>
 

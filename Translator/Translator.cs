@@ -101,9 +101,14 @@ namespace Translation
             {
                 throw new Exception($"Ошибка! Объект {nameof(Reader)} не был инициализирован!");
             }
+<<<<<<< Updated upstream
 
             _streamReader.Close();
             _isClosed = true;
+=======
+            _streamReader.Close();
+           _isClosed = true;
+>>>>>>> Stashed changes
         }
     }
 }

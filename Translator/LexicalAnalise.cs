@@ -10,9 +10,9 @@ using Translation;
 
 namespace LexicalAnalise
 {
-    public struct Keyword
+    public  struct Keyword
     {
-        public string word;
+        public  string word;
         public Lexem lexem;
 
         public Keyword()
@@ -57,8 +57,17 @@ namespace LexicalAnalise
         private static string _name;
         private static int _number;
 
-       static LexicalAnalyzer()
+        public static void init()
         {
+            _keywords = new List<Keyword>();
+            _lexem = Lexem.None;
+            _name = string.Empty;
+            _number = 0;
+        }
+
+        static LexicalAnalyzer()
+        {
+            
             _keywords = new List<Keyword>();
             _lexem = Lexem.None;
             _name = string.Empty;
@@ -101,6 +110,10 @@ namespace LexicalAnalise
 
         private static Lexem GetKeyword(string word)
         {
+            if (_keywords == null) // Дополнительная проверка на случай, если _code все же окажется null
+            {
+                _keywords = new List<Keyword>();
+            }
             foreach (Keyword keyword in _keywords)
                 if (keyword.word == word)
                     return keyword.lexem;
@@ -211,6 +224,16 @@ namespace LexicalAnalise
             {
                 Reader.ReadNextCharacter();
                 _lexem = Lexem.Plus;
+            }
+            else if (Reader.Character == '>')
+            {
+                Reader.ReadNextCharacter();
+                _lexem = Lexem.Greater;
+            }
+            else if (Reader.Character == '<')
+            {
+                Reader.ReadNextCharacter();
+                _lexem = Lexem.Less;
             }
             else if (Reader.Character == '-')
             {

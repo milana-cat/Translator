@@ -13,6 +13,8 @@ using System.Xml;
 using LexicalAnalise;
 using NameTables;
 using SyntaxAnalyzer;
+using System.Reflection;
+
 
 
 namespace Translator
@@ -89,7 +91,37 @@ namespace Translator
                 SaveTextBox.Text+= CodePointer + '\n';
 
             //SaveTextBox.Text = SelectTextBox.Text;
+            }
+            Translation.Reader.Close();
 
+public static class StaticDataCleaner
+{
+    public static void ClearStaticData()
+    {
+        // Получаем все типы в текущей сборке
+        Type[] types = Assembly.GetExecutingAssembly().GetTypes();
+
+        foreach (Type type in types)
+        {
+            // Проверяем, является ли тип статическим классом
+            if (type.IsClass && type.IsAbstract && type.IsSealed)
+            {
+                // Получаем все статические поля класса
+                FieldInfo[] fields = type.GetFields(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
+
+                foreach (FieldInfo field in fields)
+                {
+                    // Устанавливаем значение по умолчанию для статических полей
+                    object defaultValue = field.FieldType.IsValueType ? Activator.CreateInstance(field.FieldType) : null;
+                    field.SetValue(null, defaultValue);
+                }
+                // Попытка повторной инициализации (вызов метода инициализации)
+                MethodInfo initializeMethod = type.GetMethod(type.Name, BindingFlags.Static | BindingFlags.Public);
+                if (initializeMethod != null)
+                {
+                    initializeMethod.Invoke(null, null);
+                }
+            }
         }
     }
 }

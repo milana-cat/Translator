@@ -13,16 +13,17 @@ public static class SyntaxAnalyzer
 	private static void CheckLexem(Lexem expectedLexem)
 	{
 		{
+            if (LexicalAnalyzer.Lexem!=Lexem.None)
 
-			if (LexicalAnalyzer.Lexem == expectedLexem)
-			{
-				LexicalAnalyzer.ParseNextLexem();
-			}
+			    if (LexicalAnalyzer.Lexem == expectedLexem )
+			    {
+				    LexicalAnalyzer.ParseNextLexem();
+			    }
 
-			else
-			{
-				ErrorHandler.AddError($"Вместо {LexicalAnalyzer.Lexem} ожидалось {expectedLexem}. (Строка {Reader.LineNumber}, позиция {Reader.PositionInLine}, символ '{Reader.Character}')");
-			}
+			    else
+			    {
+				    ErrorHandler.AddError($"Вместо {LexicalAnalyzer.Lexem} ожидалось {expectedLexem}. (Строка {Reader.LineNumber}, позиция {Reader.PositionInLine}, символ '{Reader.Character}')");
+			    }
 		}
 	}
 
@@ -487,9 +488,10 @@ public static class SyntaxAnalyzer
         CodeGenerator.DeclareMainProcedureCompletion();
         CodeGenerator.DeclarePrintProcedure();
         CodeGenerator.DeclareCodeCompletion();
+        //LexicalAnalyzer.init();
     }
 }
-	public class ErrorHandler
+	public static class ErrorHandler
 	{
 		private static List<string> _errors;
 
@@ -502,7 +504,11 @@ public static class SyntaxAnalyzer
 
 		public static void AddError(string error)
 		{
-			_errors.Add(error);
+        if (_errors == null) // Дополнительная проверка на случай, если _code все же окажется null
+        {
+            _errors = new List<string>();
+        }
+        _errors.Add(error);
 		}
 	} 
 

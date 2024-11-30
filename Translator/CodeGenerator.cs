@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Translator
 {
 
-    public static class CodeGenerator
+    public static  class CodeGenerator
     {
         private static List<string> _code;
         private static int _countLabels;
@@ -29,6 +29,10 @@ namespace Translator
 
         public static void AddInstruction(string instruction)
         {
+            if (_code == null) // Дополнительная проверка на случай, если _code все же окажется null
+            {
+                _code = new List<string>();
+            }
             _code.Add(instruction);
         }
 
@@ -68,8 +72,9 @@ namespace Translator
 
         public static void DeclareVariables()
         {
-            foreach (Identifier identifier in NameTable.Identifiers)
-                AddInstruction(identifier.name + "  dw    1");
+            if(NameTable.Identifiers!=null)
+                foreach (Identifier identifier in NameTable.Identifiers)
+                    AddInstruction(identifier.name + "  dw    1");
         }
 
         public static void DeclarePrintProcedure()
